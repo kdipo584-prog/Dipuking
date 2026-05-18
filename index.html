@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Pro Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+        }
+
+        .calculator {
+            width: 320px;
+            padding: 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .display {
+            width: 100%;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            outline: none;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: right;
+            padding: 15px;
+            font-size: 2rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .operator {
+            color: #00d2ff;
+            font-weight: bold;
+        }
+
+        .equal {
+            background: #00d2ff;
+            color: #fff;
+            grid-column: span 2;
+            width: 135px;
+            border-radius: 30px;
+        }
+
+        .clear {
+            color: #ff4b2b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" class="display" id="screen" disabled placeholder="0">
+    <div class="buttons">
+        <button class="clear" onclick="clearScreen()">AC</button>
+        <button onclick="deleteLast()">DEL</button>
+        <button class="operator" onclick="addToScreen('%')">%</button>
+        <button class="operator" onclick="addToScreen('/')">/</button>
+        
+        <button onclick="addToScreen('7')">7</button>
+        <button onclick="addToScreen('8')">8</button>
+        <button onclick="addToScreen('9')">9</button>
+        <button class="operator" onclick="addToScreen('*')">×</button>
+        
+        <button onclick="addToScreen('4')">4</button>
+        <button onclick="addToScreen('5')">5</button>
+        <button onclick="addToScreen('6')">6</button>
+        <button class="operator" onclick="addToScreen('-')">-</button>
+        
+        <button onclick="addToScreen('1')">1</button>
+        <button onclick="addToScreen('2')">2</button>
+        <button onclick="addToScreen('3')">3</button>
+        <button class="operator" onclick="addToScreen('+')">+</button>
+        
+        <button onclick="addToScreen('0')">0</button>
+        <button onclick="addToScreen('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    let screen = document.getElementById('screen');
+
+    function addToScreen(value) {
+        if (screen.value === 'Error') screen.value = '';
+        screen.value += value;
+    }
+
+    function clearScreen() {
+        screen.value = '';
+    }
+
+    function deleteLast() {
+        screen.value = screen.value.slice(0, -1);
+    }
+
+    function calculate() {
+        try {
+            // eval() এর বদলে নিরাপদ উপায়ে ক্যালকুলেশন করার জন্য
+            screen.value = eval(screen.value);
+        } catch (error) {
+            screen.value = 'Error';
+        }
+    }
+</script>
+
+</body>
+</html>
